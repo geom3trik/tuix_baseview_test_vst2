@@ -3,7 +3,6 @@
 #[macro_use]
 extern crate vst;
 
-use baseview::{Size, WindowOpenOptions, WindowScalePolicy};
 use vst::buffer::AudioBuffer;
 use vst::editor::Editor;
 use vst::plugin::{Category, Info, Plugin, PluginParameters};
@@ -14,15 +13,12 @@ use raw_window_handle::{HasRawWindowHandle, RawWindowHandle};
 
 use std::sync::Arc;
 
-use tuix_baseview::Application;
+use tuix::Application;
 
 use tuix::{Entity, Event, State, BuildHandler, EventHandler, SliderEvent};
 
-use tuix::style::{Length, Color};
-
 
 use tuix::widgets::value_knob::*;
-use tuix::widgets::control_knob::*;
 
 static THEME: &str = include_str!("theme.css");
 
@@ -94,15 +90,17 @@ impl Editor for TestPluginEditor {
 
         self.is_open = true;
 
-        let app = tuix_baseview::Application::new_with_parent(&VstParent(parent), |win_desc, state, window| {
+        let params = self.params.clone();
+
+        Application::new(move |win_desc, state, window| {
             state.insert_theme(THEME);
 
-            GainWidget::new(self.params.clone()).build(state, window, |builder| {
+            GainWidget::new(params.clone()).build(state, window, |builder| {
                 builder
             });
     
             win_desc.with_title("Hello Plugin").with_inner_size(300,300)
-        });
+        }).open_parented(&VstParent(parent));
 
         true
     }

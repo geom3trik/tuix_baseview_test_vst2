@@ -11,7 +11,7 @@ name = "tuix_baseview_test_vst2"
 crate-type = ["cdylib"]
 
 [dependencies]
-baseview = {git = "https://github.com/RustAudio/baseview", branch = "master"}
+baseview = {git = "https://github.com/RustAudio/baseview", rev = "36e4474c8aeb885137134daf1903555fab4e88e4"}
 dirs = "3"
 log = "0.4"
 log-panics = "2"

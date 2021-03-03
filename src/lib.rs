@@ -52,7 +52,7 @@ impl BuildHandler for GainWidget {
 }
 
 impl EventHandler for GainWidget {
-    fn on_event(&mut self, state: &mut State, entity: Entity, event: &mut Event) -> bool {
+    fn on_event(&mut self, _state: &mut State, _entity: Entity, event: &mut Event) {
 
         if let Some(slider_event) = event.message.downcast::<SliderEvent>() {
             match slider_event {
@@ -63,8 +63,6 @@ impl EventHandler for GainWidget {
                 _=> {}
             }
         }
-
-        false
     }
 }
 
@@ -83,7 +81,6 @@ impl Editor for TestPluginEditor {
     }
 
     fn open(&mut self, parent: *mut ::std::ffi::c_void) -> bool {
-        ::log::info!("Editor open");
         if self.is_open {
             return false;
         }
@@ -93,7 +90,7 @@ impl Editor for TestPluginEditor {
         let params = self.params.clone();
 
         Application::new(move |win_desc, state, window| {
-            state.insert_theme(THEME);
+            state.add_theme(THEME);
 
             GainWidget::new(params.clone()).build(state, window, |builder| {
                 builder
@@ -165,21 +162,21 @@ impl Plugin for TestPlugin {
     }
 
     fn init(&mut self) {
-        let log_folder = ::dirs::home_dir().unwrap().join("tmp");
+        // let log_folder = ::dirs::home_dir().unwrap().join("tmp");
 
-        let _ = ::std::fs::create_dir(log_folder.clone());
+        // let _ = ::std::fs::create_dir(log_folder.clone());
 
-        let log_file = ::std::fs::File::create(log_folder.join("TuixBaseviewTest.log")).unwrap();
+        // let log_file = ::std::fs::File::create(log_folder.join("TuixBaseviewTest.log")).unwrap();
 
-        let log_config = ::simplelog::ConfigBuilder::new()
-            .set_time_to_local(true)
-            .build();
+        // let log_config = ::simplelog::ConfigBuilder::new()
+        //     .set_time_to_local(true)
+        //     .build();
 
-        let _ = ::simplelog::WriteLogger::init(simplelog::LevelFilter::Info, log_config, log_file);
+        // let _ = ::simplelog::WriteLogger::init(simplelog::LevelFilter::Info, log_config, log_file);
 
-        ::log_panics::init();
+        // ::log_panics::init();
 
-        ::log::info!("init");
+        // ::log::info!("init");
     }
 
     fn get_editor(&mut self) -> Option<Box<dyn Editor>> {
@@ -224,7 +221,6 @@ impl PluginParameters for GainEffectParameters {
 
     // the `set_parameter` function sets the value of a parameter.
     fn set_parameter(&self, index: i32, val: f32) {
-        #[allow(clippy::single_match)]
         match index {
             0 => self.amplitude.set(val),
             _ => (),

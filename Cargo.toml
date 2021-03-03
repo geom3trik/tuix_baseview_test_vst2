@@ -11,14 +11,7 @@ name = "tuix_baseview_test_vst2"
 crate-type = ["cdylib"]
 
 [dependencies]
-baseview = {git = "https://github.com/RustAudio/baseview", rev = "36e4474c8aeb885137134daf1903555fab4e88e4"}
-dirs = "3"
-log = "0.4"
-log-panics = "2"
 raw-window-handle = "0.3"
-simplelog = "0.8"
 vst = "0.2"
-rtrb = "0.1.1"
 tuix = {git = "https://github.com/geom3trik/tuix", branch = "main", version = "0.1.0", features = ["baseview"], default-features = false}
-# tuix_baseview = {git = "https://github.com/geom3trik/tuix_baseview", branch = "main"}
 

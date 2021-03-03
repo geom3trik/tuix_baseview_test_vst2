@@ -5,9 +5,7 @@ Based on [baseview_test_vst2](https://github.com/greatest-ape/baseview_test_vst2
 Barebones [baseview](https://github.com/RustAudio/baseview)/[tuix_baseview](https://github.com/geom3trik/tuix_baseview)
 [vst2](https://github.com/RustAudio/vst-rs) plugin.
 
-It implements an [tuix](https://github.com/geom3trik/tuix) gui for the [vst gain effect example](https://github.com/RustAudio/vst-rs/blob/master/examples/gain_effect.rs)
-
-The plugin logs events to `~/tmp/TuixBaseviewTest.log`.
+It implements a [tuix](https://github.com/geom3trik/tuix) gui for the [vst gain effect example](https://github.com/RustAudio/vst-rs/blob/master/examples/gain_effect.rs)
 
 ## Usage: macOS (Untested)
 

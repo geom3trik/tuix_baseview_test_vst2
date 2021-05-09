@@ -11,21 +11,17 @@ knob>.tick {
 }
 
 value_knob {
-    align-items: center;
-    margin: 10px;
+    left: 1s;
+    right: 1s;
 }
 
 value_knob textbox {
-    width: 50px;
-    height: 25px;
     background-color: #353535;
     border-radius: 2px;
-    text-justify: center;
+    child-space: 1s;
 }
 
 value_knob label {
     color: white;
-    width: 50px;
-    height: 25px;
     text-justify: center;
 }

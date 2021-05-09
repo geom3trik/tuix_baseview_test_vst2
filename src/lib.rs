@@ -15,7 +15,7 @@ use std::sync::Arc;
 
 use tuix::Application;
 
-use tuix::{Entity, Event, State, BuildHandler, EventHandler, SliderEvent};
+use tuix::*;
 
 
 use tuix::widgets::value_knob::*;
@@ -40,7 +40,7 @@ impl GainWidget {
     }
 }
 
-impl BuildHandler for GainWidget {
+impl Widget for GainWidget {
     type Ret = Entity;
     fn on_build(&mut self, state: &mut State, entity: Entity) -> Self::Ret {
         
@@ -49,9 +49,7 @@ impl BuildHandler for GainWidget {
         
         entity
     }
-}
 
-impl EventHandler for GainWidget {
     fn on_event(&mut self, _state: &mut State, _entity: Entity, event: &mut Event) {
 
         if let Some(slider_event) = event.message.downcast::<SliderEvent>() {
@@ -89,14 +87,15 @@ impl Editor for TestPluginEditor {
 
         let params = self.params.clone();
 
-        Application::new(move |win_desc, state, window| {
+        let window_description = WindowDescription::new().with_inner_size(WINDOW_WIDTH as u32, WINDOW_HEIGHT as u32).with_title("Hello Plugin");
+
+        Application::new(window_description, move |state, window| {
             state.add_theme(THEME);
 
             GainWidget::new(params.clone()).build(state, window, |builder| {
                 builder
             });
     
-            win_desc.with_title("Hello Plugin").with_inner_size(300,300)
         }).open_parented(&VstParent(parent));
 
         true

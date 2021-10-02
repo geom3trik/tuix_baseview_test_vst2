@@ -17,9 +17,6 @@ use tuix::Application;
 
 use tuix::*;
 
-
-use tuix::widgets::value_knob::*;
-
 static THEME: &str = include_str!("theme.css");
 
 const WINDOW_WIDTH: usize = 300;
@@ -42,10 +39,12 @@ impl GainWidget {
 
 impl Widget for GainWidget {
     type Ret = Entity;
+    type Data = ();
     fn on_build(&mut self, state: &mut State, entity: Entity) -> Self::Ret {
         
         let val = self.params.amplitude.get();
-        self.control = ValueKnob::new("Gain", val, 0.0, 1.0).build(state, entity, |builder| builder);
+        let map = GenericMap::new(0.0, 1.0, ValueScaling::Linear, DisplayDecimals::One, None);
+        self.control = Knob::new(map, val).build(state, entity, |builder| builder);
         
         entity
     }
@@ -92,8 +91,11 @@ impl Editor for TestPluginEditor {
         Application::new(window_description, move |state, window| {
             state.add_theme(THEME);
 
+            window.set_background_color(state, Color::rgb(50, 50, 50));
+
             GainWidget::new(params.clone()).build(state, window, |builder| {
                 builder
+                    .set_child_space(Stretch(1.0))
             });
     
         }).open_parented(&VstParent(parent));

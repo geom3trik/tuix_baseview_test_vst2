@@ -16,6 +16,7 @@ use std::sync::Arc;
 use tuix::Application;
 
 use tuix::*;
+use tuix::widgets::*;
 
 static THEME: &str = include_str!("theme.css");
 

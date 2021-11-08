@@ -13,6 +13,6 @@ crate-type = ["cdylib"]
 [dependencies]
 raw-window-handle = "0.3"
 vst = "0.2"
-tuix = {git = "https://github.com/geom3trik/tuix", branch = "main", features = ["baseview"], default-features = false}
+tuix = {git = "https://github.com/geom3trik/tuix", branch = "DPI", features = ["baseview"], default-features = false}
 
 
